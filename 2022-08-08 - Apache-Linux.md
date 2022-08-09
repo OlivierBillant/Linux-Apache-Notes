@@ -84,7 +84,7 @@ L'activation des modules permettra d'utiliser par exemple plusieurs versions de 
 On accède au fichier index.html dans
 
 ```bash
-/var/www/html/
+/var/www/
 ```
 
 On pourra ensuite :
@@ -169,7 +169,7 @@ On ajoute dans le fichier :
 10.170.200.36 site1.fr www.site1.fr
 ```
 
-```html
+```bash
 
 ```
 
@@ -187,62 +187,79 @@ On ajoute dans le fichier :
 3. Pour telecharger le template sur mon serveur
    Il va falloir utiliser wget
 
-    ```html
-    apt install wget (si il n'est pas installé)
-    ```
+   ```html
+   apt install wget (si il n'est pas installé)
+   ```
 
-Pour utiliser la commande wget:
+   Pour utiliser la commande wget:
 
-    ```html
-    wget url-de-mon-lien.zip
-    ```
+   ```html
+   wget url-de-mon-lien.zip
+   ```
 
 4. decompresser le .zip
 
-    ```html
-    unzip nom-du-fichier.zip
-    ```
+   ```html
+   unzip nom-du-fichier.zip
+   ```
 
-    ```html
-    apt install unzip (si il n'est pas installé)
-    ```
+   ```html
+   apt install unzip (si il n'est pas installé)
+   ```
 
 5. une fois decompresser il faut soit:  
    renommer le dossier en www/  
    ou  
    deplacer les fichiers dans votre www/
-   
+
    <br>
 
 ## CONFIGURATION DU VIRTUALHOST
 
-6. cd /etc/apache2/sites-available  
-   copier un virtual et renommer le fichier
+6.  Copier un virtual host et renommer le fichier
 
-   Exemple:
+    ```bash
+    cd /etc/apache2/sites-available
+    ```
 
-   ```html
-   cp site1.fr.conf mon-super-site.com.conf
-   ```
+    Exemple:
 
-7. Modifier le virtualhost  
-   ServerName mon-super-site.com  
-   ServerAlias www.mon-super-site.com
+    ```bash
+    cp site1.fr.conf mon-super-site.com.conf
+    ```
 
-    ```html
+7.  Modifier le virtualhost  
+    ServerName mon-super-site.com  
+    ServerAlias www.mon-super-site.com
+
+    ```bash
     Documentroot Chemin/test/www/
     ```
+
     Modifier les noms des 2 logs
 
-8. active le virtualhost  
-   a2ensite nom-du-virtual-host.conf
+8.  Activer le virtualhost
 
-9. redemarrer apache2
-
-10. configurer le HOST  
-    si dns interne on va dans 
-    ```html
-    C:/Windows/System32/Drivers/etc/  hosts
+    ```bash
+    a2ensite nom-du-virtual-host.conf
     ```
 
+9.  Redemarrer apache2
 
+10. configurer le HOST  
+    si dns interne on va dans
+    ```bash
+    C:/Windows/System32/Drivers/etc/ hosts
+    ```
+
+```bash
+apt install php
+```
+
+Télécharger getkirby starterkit, le renommer en wwww dans le user getkirby.  
+Créer le dossier media.  
+Modifier les droits d'écriture :
+
+```bash
+chmod -R 777 media/
+```
