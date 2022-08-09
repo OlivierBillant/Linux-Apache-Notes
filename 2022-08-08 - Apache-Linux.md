@@ -72,23 +72,29 @@ ssh user@ipadress -p port
 ```
 
 Installation en distance de Apache, php, getKirby, Symfony, Laravel.
+
 ```bash
 su
 apt install apache2
 
 ```
+
 Test d'apache : ip dans le navigateur doit donner la page d'accueil d'apache2.  
 L'activation des modules permettra d'utiliser par exemple plusieurs versions de php en parrallèle.  
-On accède au fichier index.html dans 
+On accède au fichier index.html dans
+
 ```bash
 /var/www/html/
 ```
+
 On pourra ensuite :
+
 - Créer un utilisateur
 - Y créer un dossier www
 - Intégrer une page html de test.
 
 Avant il faudra autoriser apache à accéder à des pages localisées dans d'autres dossiers.
+
 ```bash
 nano /etc/apache2/apache2.conf
 <Directory /home/>
@@ -96,38 +102,48 @@ AllowOverride All
 ```
 
 On va ensuite créer un utilisateur avec
+
 ```bash
 su -
 adduser site1
 ```
+
 Créer un dossier www in home/site1/
 Créer un fichier index.html dans /site1
 
 Puis créer les virtual hosts :
+
 ```bash
 su -
 cd /etc/apache2/site-available
 ```
+
 Copie de sauvegarde de la configuration par défault:
+
 ```bash
 cp 000-default.conf 000-default.conf.save
 ```
+
 Créer une copie pour le site 1 :
+
 ```bash
 cp 000-default.conf site1.fr.conf
 ```
-Modifier le fichier ligne 9 : 
+
+Modifier le fichier ligne 9 :
+
 ```bash
 ServerNanem site1.fr
 ServerAlias www.site1.fr
 
 DocumentRoot /home/site1/www
 
-/apachelogdir/site.1.fr_error.log
-/apachelogdir/site.1.fr_access.log combined
+ErrorLog ${APACHE_LOG_DIR}/site1.fr_error.log
+CustomLog ${APACHE_LOG_DIR}/site1.fr_access.log combined
 ```
 
 Activer les virtualhosts
+
 ```bash
 a2ensite site1.fr.conf
 systemctl reload apache2
@@ -135,7 +151,7 @@ systemctl status apache2
 ```
 
 Installer un navigateur en ligne de commande :
+
 ```bash
 apt install lynx
 ```
-
