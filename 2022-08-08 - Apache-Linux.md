@@ -115,7 +115,7 @@ Puis créer les virtual hosts :
 
 ```bash
 su -
-cd /etc/apache2/site-available
+cd /etc/apache2/sites-available/
 ```
 
 Copie de sauvegarde de la configuration par défault:
@@ -157,6 +157,92 @@ apt install lynx
 ```
 
 Modifier les hosts windows :
+
 - Ouvrir le bloc note win en adminsitrateur
 - Fichier Ouvrir /windows/system32/drivers/etc
 - Afficher tous fichiers => hosts
+
+On ajoute dans le fichier :
+
+```
+#site de test
+10.170.200.36 site1.fr www.site1.fr
+```
+
+```html
+
+```
+
+## CREATION DE L'UTILISATEUR
+
+1. On crée un utilisateur (nom du site)
+   on se met en root (su -) puis on fait adduser (ou useradd) pour créer l'utilisateur
+
+## RECUPERATION D'UN TEMPLATE
+
+2. On se connecte sur cet utilisateur  
+   On crée un dossier www/ ou public/ ou se que vous voulez (le nom du projet par exemple)  
+   On telecharge sur internet un site de template en HTML
+
+3. Pour telecharger le template sur mon serveur
+   Il va falloir utiliser wget
+
+    ```html
+    apt install wget (si il n'est pas installé)
+    ```
+
+Pour utiliser la commande wget:
+
+    ```html
+    wget url-de-mon-lien.zip
+    ```
+
+4. decompresser le .zip
+
+    ```html
+    unzip nom-du-fichier.zip
+    ```
+
+    ```html
+    apt install unzip (si il n'est pas installé)
+    ```
+
+5. une fois decompresser il faut soit:  
+   renommer le dossier en www/  
+   ou  
+   deplacer les fichiers dans votre www/
+   
+   <br>
+
+## CONFIGURATION DU VIRTUALHOST
+
+6. cd /etc/apache2/sites-available  
+   copier un virtual et renommer le fichier
+
+   Exemple:
+
+   ```html
+   cp site1.fr.conf mon-super-site.com.conf
+   ```
+
+7. Modifier le virtualhost  
+   ServerName mon-super-site.com  
+   ServerAlias www.mon-super-site.com
+
+    ```html
+    Documentroot Chemin/test/www/
+    ```
+    Modifier les noms des 2 logs
+
+8. active le virtualhost  
+   a2ensite nom-du-virtual-host.conf
+
+9. redemarrer apache2
+
+10. configurer le HOST  
+    si dns interne on va dans 
+    ```html
+    C:/Windows/System32/Drivers/etc/  hosts
+    ```
+
+
