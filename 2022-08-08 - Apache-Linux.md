@@ -134,3 +134,8 @@ systemctl reload apache2
 systemctl status apache2
 ```
 
+Installer un navigateur en ligne de commande :
+```bash
+apt install lynx
+```
+
