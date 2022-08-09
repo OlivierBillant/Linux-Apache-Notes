@@ -155,3 +155,8 @@ Installer un navigateur en ligne de commande :
 ```bash
 apt install lynx
 ```
+
+Modifier les hosts windows :
+- Ouvrir le bloc note win en adminsitrateur
+- Fichier Ouvrir /windows/system32/drivers/etc
+- Afficher tous fichiers => hosts
