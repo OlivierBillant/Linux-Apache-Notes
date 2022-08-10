@@ -290,6 +290,7 @@ La première fois
 ```bash
 mysql_secure_installation
 ```
+- unix socket authent : yes
 - supprimer utilisateurs anaonymes : oui
 - bloquer default root access : oui
 - remove test db : oui
