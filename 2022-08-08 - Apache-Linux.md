@@ -288,9 +288,15 @@ systemctl status mariadb
 ```
 La première fois
 ```bash
-
+mysql_secure_installation
 ```
 - supprimer utilisateurs anaonymes : oui
 - bloquer default root access : oui
 - remove test db : oui
 - reload privileges : oui
+
+```bash
+mysql –u root -p
+GRANT ALL PRIVILEGES ON *.* TO 'superolivier'@'localhost' IDENTIFIED BY 'supermotdepasse' WITH GRANT OPTION;
+mysql –u superolivier -p
+```
