@@ -252,6 +252,7 @@ On ajoute dans le fichier :
     C:/Windows/System32/Drivers/etc/ hosts
     ```
 
+### Installtion php, getkirby
 ```bash
 apt install php
 ```
@@ -260,6 +261,36 @@ Télécharger getkirby starterkit, le renommer en wwww dans le user getkirby.
 Créer le dossier media.  
 Modifier les droits d'écriture :
 
+### Gestion des droits
 ```bash
 chmod -R 777 media/
 ```
+<br>
+
+## Gestion des droits d'écriture
+### chmod et chown
+Droits et permissions des fichiers et dossiers et propriété.  
+Visualiser les autorisarisations :
+```bash
+ls -l
+```
+Chaque type aura son propre numéro :
+- 4 : lire
+- 2 : écrire
+- 1 : éxécuter
+
+La somme soit 7 permet de tout faire.  
+
+## Installation de maria db
+```bash
+apt install mariadb-server
+systemctl status mariadb
+```
+La première fois
+```bash
+
+```
+- supprimer utilisateurs anaonymes : oui
+- bloquer default root access : oui
+- remove test db : oui
+- reload privileges : oui
