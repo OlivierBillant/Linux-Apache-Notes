@@ -301,3 +301,63 @@ mysql –u root -p
 GRANT ALL PRIVILEGES ON *.* TO 'superolivier'@'localhost' IDENTIFIED BY 'supermotdepasse' WITH GRANT OPTION;
 mysql –u superolivier -p
 ```
+
+## Installer le serveur web
+```bash
+apt install apache2 php php-json php-mbstring php-zip php-gd php-xml php-curl php-mysql
+```
+
+## Installer phpmyadmin
+```bash
+su -
+cd /opt/
+wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip
+```
+On dezip puis on renome en phpMyAdmin
+```bash
+chown -Rfv www-data:www-data /opt/phpMyAdmin
+```
+
+Créer dans Apache2, le fichier phpmyadmin.conf
+```bash
+nano /etc/apache2/sites-available/phpmyadmin.conf
+```
+
+```bash
+<VirtualHost *:9000>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /opt/phpMyAdmin
+<Directory /opt/phpMyAdmin>
+        Options Indexes FollowSymLinks
+        AllowOverride none
+        Require all granted
+</Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error_phpmyadmin.log
+        CustomLog ${APACHE_LOG_DIR}/access_phpmyadmin.log combined
+</VirtualHost>
+```
+```bash
+a2ensite phpmyadmin.conf
+systemctl reload apache2
+```
+Activer le port 9000
+```bash
+nano ../ports.conf
+```
+Y ajouter le listen 9000
+```bash
+Listen 80                      
+Listen 9000                    
+                               
+<IfModule ssl_module>          
+        Listen 443             
+</IfModule>                    
+                               
+<IfModule mod_gnutls.c>        
+        Listen 443             
+</IfModule>                    
+```                     
+```bash                     
+systemctl reload apache2
+```
+Se connecter à phpmyadmin via : monip:9000            
