@@ -392,7 +392,7 @@ Se connecter à phpmyadmin via : monip:9000
 openssl genrsa -des3 -out /etc/ssl/private/www.site1.fr.key 2048
 openssl req -new -key /etc/ssl/private/www.site1.fr.key -out /etc/ssl/private/www.site1.fr.csr
 ```
-
+```
 -----BEGIN CERTIFICATE REQUEST-----
 MIICljCCAX4CAQAwUTELMAkGA1UEBhMCRlIxDzANBgNVBAgMBmZyYW5jZTEOMAwG
 A1UEBwwFYnJlc3QxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDCC
@@ -409,7 +409,7 @@ ykwzt6Y7OPuYipcFQifWS0e1Vd4Kgu3nyRjcQUUldnGLV7+MwLRUmKLnxFxlK+g/
 0BzDMUHT5oOq/wRohElhPZ8N5p4BH40MaVDQ1fJm+nPqamiH2mBlmQEg3TeNXRwr
 /sKQAyMj7rmYVGQRnv6v5Limb8Z/fXT08BkcnYvmhOmthmGozsIXeF28
 -----END CERTIFICATE REQUEST-----
-
+```
 ```bash
 openssl x509 -req -days 90 -in /etc/ssl/private/www.site1.fr.csr
 -signkey /etc/ssl/private/www.site1.fr.key -out /etc/ssl/private/www.site1.fr.cert
@@ -434,7 +434,7 @@ systemctl restart apache2
 
         SSLEngine On
         SSLCertificateKeyFile /etc/ssl/private/www.site1.fr.key.pem
-        SSLCertificateFile /etc/ssl/private/www.site1.fr.cert1
+        SSLCertificateFile /etc/ssl/private/www.site1.fr.cert
 
         ErrorLog ${APACHE_LOG_DIR}/site1.fr_error.log
         CustomLog ${APACHE_LOG_DIR}/site1.fr_access.log combined
