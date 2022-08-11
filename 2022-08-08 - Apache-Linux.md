@@ -43,16 +43,16 @@ Linux est sensible à la casse.
 
 Notion de chemin absolu vs. relatif.
 
-pwd : print working directory, affiche le chemin de l'endroit.  
-cd : choose directory
-cd (seul) : amène à la racine de l'utilisateur.
-ls : lister les fichiers. (-l)
-
-ip a : puor accéder à l'adresse ip de la machine.
-
-touch : creation de fichier
-nana ou vi + nom de fichier : editeur de texte
-cat : imprime le contenu du fichier.
+- pwd : print working directory, affiche le chemin de l'endroit.
+- cd : choose directory
+- cd (seul) : amène à la racine de l'utilisateur.
+- ls : lister les fichiers. (-l)
+- ip a : puor accéder à l'adresse ip de la machine.
+- touch : creation de fichier
+- nano ou vi + nom de fichier : editeur de texte
+- cat : imprime le contenu du fichier.
+  - head et less permettent des affichages de début et fin de fichier.
+- grep : chercher des expressions dans un fichier. Peut prendre des regex.
 
 ### Configuration ssh
 
@@ -74,7 +74,7 @@ ssh user@ipadress -p port
 Installation en distance de Apache, php, getKirby, Symfony, Laravel.
 
 ```bash
-su
+su -
 apt install apache2
 
 ```
@@ -253,6 +253,7 @@ On ajoute dans le fichier :
     ```
 
 ### Installtion php, getkirby
+
 ```bash
 apt install php
 ```
@@ -262,34 +263,45 @@ Créer le dossier media.
 Modifier les droits d'écriture :
 
 ### Gestion des droits
+
 ```bash
 chmod -R 777 media/
 ```
+
 <br>
 
 ## Gestion des droits d'écriture
+
 ### chmod et chown
+
 Droits et permissions des fichiers et dossiers et propriété.  
 Visualiser les autorisarisations :
+
 ```bash
 ls -l
 ```
+
 Chaque type aura son propre numéro :
+
 - 4 : lire
 - 2 : écrire
 - 1 : éxécuter
 
-La somme soit 7 permet de tout faire.  
+La somme soit 7 permet de tout faire.
 
 ## Installation de maria db
+
 ```bash
 apt install mariadb-server
 systemctl status mariadb
 ```
+
 La première fois
+
 ```bash
 mysql_secure_installation
 ```
+
 - unix socket authent : yes
 - supprimer utilisateurs anaonymes : oui
 - bloquer default root access : oui
@@ -303,22 +315,27 @@ mysql –u superolivier -p
 ```
 
 ## Installer le serveur web
+
 ```bash
 apt install apache2 php php-json php-mbstring php-zip php-gd php-xml php-curl php-mysql
 ```
 
 ## Installer phpmyadmin
+
 ```bash
 su -
 cd /opt/
 wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip
 ```
+
 On dezip puis on renome en phpMyAdmin
+
 ```bash
 chown -Rfv www-data:www-data /opt/phpMyAdmin
 ```
 
 Créer dans Apache2, le fichier phpmyadmin.conf
+
 ```bash
 nano /etc/apache2/sites-available/phpmyadmin.conf
 ```
@@ -336,28 +353,92 @@ nano /etc/apache2/sites-available/phpmyadmin.conf
         CustomLog ${APACHE_LOG_DIR}/access_phpmyadmin.log combined
 </VirtualHost>
 ```
+
 ```bash
 a2ensite phpmyadmin.conf
 systemctl reload apache2
 ```
+
 Activer le port 9000
+
 ```bash
 nano ../ports.conf
 ```
+
 Y ajouter le listen 9000
+
 ```bash
-Listen 80                      
-Listen 9000                    
-                               
-<IfModule ssl_module>          
-        Listen 443             
-</IfModule>                    
-                               
-<IfModule mod_gnutls.c>        
-        Listen 443             
-</IfModule>                    
-```                     
-```bash                     
+Listen 80
+Listen 9000
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+```
+
+```bash
 systemctl reload apache2
 ```
-Se connecter à phpmyadmin via : monip:9000            
+
+Se connecter à phpmyadmin via : monip:9000
+
+### Configuration SSL
+
+```bash
+openssl genrsa -des3 -out /etc/ssl/private/www.site1.fr.key 2048
+openssl req -new -key /etc/ssl/private/www.site1.fr.key -out /etc/ssl/private/www.site1.fr.csr
+```
+
+-----BEGIN CERTIFICATE REQUEST-----
+MIICljCCAX4CAQAwUTELMAkGA1UEBhMCRlIxDzANBgNVBAgMBmZyYW5jZTEOMAwG
+A1UEBwwFYnJlc3QxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMwNCE+khEumu7JfN98ejAGz
++hns1BCNU0mwJnlhbMFgHD8scyfyovEcFAdRXaYE7/Ax3lXMjaVyEV4UrKetBx8V
+L3U/xnA/TeAsaKdTrKtcx5BZ/M0LFiX2FsWxEAIzMHg/xuP+/hj6Fw79sV4V5uhf
+aGNQoSVQ1iNR8eo2cRa+mwtJ/P/M0stEwCkdW9BLs3HAx2f76ysxbCAb8p6c4Tcg
+yWAXKWZDm+fGb04jn0NGuVa8MJ0HaxspIL/AbVtyTtdms7oz92epzaZm+cUiaCs2
+zp/QWCDo8b98JnyF4H0mb6l1078biZfp0rtovyTcEdwb3tG38k6dbsbebliCioEC
+AwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQDLLIYsYLWUgqdPPgJpLTKnSfzN6pRj
+ppt9wqJDlMQpvhIigHdggpBwrN4CKb101WfW+F0cy3oF4f0kmO9VclL53oDdlcGz
+BXgBwy9W3MS+Hxpm+NxDzYBMq2HEanD6MxWHwXq31RvTE9aQAh7HqTyIMLkzfOQL
+ykwzt6Y7OPuYipcFQifWS0e1Vd4Kgu3nyRjcQUUldnGLV7+MwLRUmKLnxFxlK+g/
+0BzDMUHT5oOq/wRohElhPZ8N5p4BH40MaVDQ1fJm+nPqamiH2mBlmQEg3TeNXRwr
+/sKQAyMj7rmYVGQRnv6v5Limb8Z/fXT08BkcnYvmhOmthmGozsIXeF28
+-----END CERTIFICATE REQUEST-----
+
+```bash
+openssl x509 -req -days 90 -in /etc/ssl/private/www.site1.fr.csr
+-signkey /etc/ssl/private/www.site1.fr.key -out /etc/ssl/private/www.site1.fr.cert
+```
+
+```bash
+openssl rsa -in /etc/ssl/private/www.site1.fr.key -out /etc/ssl/private/www.site1.fr.key.pem
+```
+
+```bash
+a2enmod ssl
+systemctl restart apache2
+```
+
+```bash
+<VirtualHost *:443>
+        ServerName site-eni-olivier.freeddns.org
+        ServerAlias www.site-eni-olivier.freeddns.org
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /home/site1/www
+
+        SSLEngine On
+        SSLCertificateKeyFile /etc/ssl/private/www.site1.fr.key.pem
+        SSLCertificateFile /etc/ssl/private/www.site1.fr.cert1
+
+        ErrorLog ${APACHE_LOG_DIR}/site1.fr_error.log
+        CustomLog ${APACHE_LOG_DIR}/site1.fr_access.log combined
+
+</VirtualHost>
+
+```
