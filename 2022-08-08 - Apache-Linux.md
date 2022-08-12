@@ -1,5 +1,13 @@
 # Apache et Linux
 
+## Reseau
+Modèle OSI : Open Systems Interconnect.  
+Orgnanisation des protocoles de communications en couches :  
+1. Physical ()
+2. 
+3. 
+4. 
+
 ## Linux
 
 ### Historique
@@ -440,5 +448,4 @@ systemctl restart apache2
         CustomLog ${APACHE_LOG_DIR}/site1.fr_access.log combined
 
 </VirtualHost>
-
 ```
